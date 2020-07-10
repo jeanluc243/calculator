@@ -1,3 +1,4 @@
+import 'package:calculator/themes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
@@ -15,9 +16,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Calculator',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: appThemeData,
       home: Splashy(
         imagePath: "assets/images/icon.png",
         customFunction: customFunction(),
