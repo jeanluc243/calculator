@@ -31,6 +31,7 @@ dependencies:
   splashy: ^2.1.2
   ant_icons: ^1.0.0
   fluid_layout: ^0.1.0
+  font_awesome_flutter: ^8.8.1
 
 
 dev_dependencies:

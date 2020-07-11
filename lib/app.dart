@@ -1,4 +1,5 @@
 import 'package:calculator/themes.dart';
+import 'package:calculator/views/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
@@ -7,7 +8,8 @@ class App extends StatelessWidget {
   Future<Widget> customFunction() {
     print("Background process");
     return Future.value(Scaffold(
-      body: Container(),
+      backgroundColor: CupertinoColors.darkBackgroundGray,
+      body: HomePage(),
     ));
   }
 
