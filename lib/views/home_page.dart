@@ -1,10 +1,12 @@
 import 'dart:ui';
 
+import 'package:ant_icons/ant_icons.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -42,6 +44,10 @@ class _HomePageState extends State<HomePage> {
                                   color: CupertinoColors.white),
                               textAlign: TextAlign.right,
                               cursorColor: Color(0xFFc346c7),
+                              cursorWidth: 3,
+                              cursorRadius: Radius.circular(10),
+                              minLines: 1,
+                              maxLines: 1,
                               autofocus: true,
                             ),
                           ),
@@ -131,10 +137,63 @@ class _HomePageState extends State<HomePage> {
                         size: context.fluid(4),
                         heightSize: context.fluid(1.7),
                         child: Container(
-                          decoration: BoxDecoration(color: Color(0xFF232f35)),
-                          child: Text("data"),
-                          // height: 159,
-                        ),
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            // alignment: Alignment.bottomLeft,
+                            decoration: BoxDecoration(color: Color(0xFF232f35)),
+                            child: Column(
+                              // crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    AvatarGlow(
+                                        glowColor: CupertinoColors.activeBlue,
+                                        child: IconButton(
+                                            icon: Icon(
+                                              AntIcons.twitter_outline,
+                                              size: 10,
+                                              color: CupertinoColors.activeBlue,
+                                            ),
+                                            onPressed: () {}),
+                                        endRadius: 20),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text(
+                                        "© 2020 ",
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color:
+                                                CupertinoColors.inactiveGray),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text(
+                                        "vesrion 1.0-alpha",
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            color:
+                                                CupertinoColors.inactiveGray),
+                                      ),
+                                    ),
+                                    AvatarGlow(
+                                        child: IconButton(
+                                            icon: Icon(
+                                              AntIcons.github,
+                                              color: CupertinoColors.white,
+                                            ),
+                                            onPressed: () {}),
+                                        endRadius: 20)
+                                  ],
+                                )
+                              ],
+                            )
+                            // height: 159,
+                            ),
                       )
                     ],
                   )

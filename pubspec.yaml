@@ -32,6 +32,8 @@ dependencies:
   ant_icons: ^1.0.0
   fluid_layout: ^0.1.0
   font_awesome_flutter: ^8.8.1
+  avatar_glow: ^1.2.0
+  
 
 
 dev_dependencies:
