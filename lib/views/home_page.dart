@@ -1,12 +1,19 @@
 import 'dart:ui';
 
 import 'package:ant_icons/ant_icons.dart';
+import 'package:calculator/models/equation.dart';
 import 'package:fluid_layout/fluid_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+
+String strInput = "";
+final textControllerInput = TextEditingController();
+final textControllerResult = TextEditingController();
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +21,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Equation> equationList = [
+    Equation("", ""),
+    Equation("", ""),
+    Equation("", ""),
+    Equation("", ""),
+  ];
+
+  String value;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // listining changes
+    textControllerInput.addListener(() {});
+    textControllerResult.addListener(() {});
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    textControllerInput.dispose();
+    textControllerResult.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FluidLayout(
@@ -24,6 +57,7 @@ class _HomePageState extends State<HomePage> {
                     fluid: false,
                     spacing: 0,
                     children: [
+                      // input for calculating
                       FluidCell.withFluidHeight(
                         size: context.fluid(8),
                         heightSize: context.fluid(4.3),
@@ -34,6 +68,42 @@ class _HomePageState extends State<HomePage> {
                           child: new Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: TextField(
+                              inputFormatters: [
+                                BlacklistingTextInputFormatter(RegExp(
+                                    "[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@|\"}{}?><]")),
+                                //
+                              ],
+                              // onTap: () => FocusScope.of(context)
+                              //     .requestFocus(new FocusNode()),
+                              controller: textControllerInput,
+                              onChanged: (text) {
+                                value = text;
+                                // debugPrint(value);
+                                Parser p = new Parser();
+                                // Bind Variable
+                                ContextModel cm = new ContextModel();
+                                Expression exp = p.parse(text);
+                                setState(() {
+                                  textControllerResult.text = exp
+                                      .evaluate(EvaluationType.REAL, cm)
+                                      .toString();
+                                });
+                              },
+
+                              onEditingComplete: () {
+                                // My Calculator
+                                //Parse expression
+                                Parser p = new Parser();
+                                // Bind Variable
+                                ContextModel cm = new ContextModel();
+                                Expression exp =
+                                    p.parse(textControllerInput.text);
+                                setState(() {
+                                  textControllerResult.text = exp
+                                      .evaluate(EvaluationType.REAL, cm)
+                                      .toString();
+                                });
+                              },
                               decoration: new InputDecoration.collapsed(
                                   hintText: "0",
                                   hintStyle:
@@ -54,6 +124,7 @@ class _HomePageState extends State<HomePage> {
                           // height: 159,
                         ),
                       ),
+                      // RESULT
                       FluidCell.withFluidHeight(
                         size: context.fluid(4),
                         heightSize: context.fluid(4.3),
@@ -63,6 +134,7 @@ class _HomePageState extends State<HomePage> {
                           child: new Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: TextField(
+                              controller: textControllerResult,
                               decoration: new InputDecoration.collapsed(
                                   hintText: "0",
                                   hintStyle:
@@ -92,7 +164,10 @@ class _HomePageState extends State<HomePage> {
                                         Icons.add,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () => setState(() {
+                                            textControllerInput.text =
+                                                textControllerInput.text + "+";
+                                          })),
                                 ),
                               ),
                               FluidCell.fit(
@@ -103,7 +178,10 @@ class _HomePageState extends State<HomePage> {
                                         Icons.remove,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () => setState(() {
+                                            textControllerInput.text =
+                                                textControllerInput.text + "-";
+                                          })),
                                 ),
                               ),
                               FluidCell.fit(
@@ -114,18 +192,29 @@ class _HomePageState extends State<HomePage> {
                                         Icons.clear,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () => setState(() {
+                                            textControllerInput.text =
+                                                textControllerInput.text + "*";
+                                          })),
                                 ),
                               ),
                               FluidCell.fit(
                                 size: context.fluid(1),
                                 child: Container(
                                   child: IconButton(
-                                      icon: Icon(
-                                        FontAwesomeIcons.percentage,
-                                        color: Colors.white,
+                                      icon: Text(
+                                        // FontAwesomeIcons.percentage,
+                                        // Icons.pou,
+                                        "/",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      onPressed: () {}),
+                                      onPressed: () => setState(() {
+                                            textControllerInput.text =
+                                                textControllerInput.text + "/";
+                                          })),
                                 ),
                               ),
                             ],
