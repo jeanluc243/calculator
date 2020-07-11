@@ -22,10 +22,10 @@ class App extends StatelessWidget {
       home: Splashy(
         imagePath: "assets/images/icon.png",
         customFunction: customFunction(),
-        backgroundColor: CupertinoColors.darkBackgroundGray,
+        backgroundColor: Color(0xFF26343c),
         logoHeight: 100,
         logoWidth: 100,
-        duration: 10000,
+        // duration: 10000,
         curve: Curves.bounceInOut,
       ),
     );

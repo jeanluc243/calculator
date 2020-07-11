@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:fluid_layout/fluid_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,8 +33,13 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: TextField(
                               decoration: new InputDecoration.collapsed(
-                                  hintText: "Start calculating"),
-                              style: TextStyle(fontSize: 40),
+                                  hintText: "0",
+                                  hintStyle:
+                                      TextStyle(color: CupertinoColors.white)),
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  fontFamily: "JetBrains",
+                                  color: CupertinoColors.white),
                               textAlign: TextAlign.right,
                               cursorColor: Color(0xFFc346c7),
                               autofocus: true,
@@ -46,8 +52,21 @@ class _HomePageState extends State<HomePage> {
                         size: context.fluid(4),
                         heightSize: context.fluid(4.3),
                         child: Container(
+                          padding: EdgeInsets.only(top: 30),
                           decoration: BoxDecoration(color: Color(0xFF232f35)),
-                          child: Text("data 2"),
+                          child: new Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: TextField(
+                              decoration: new InputDecoration.collapsed(
+                                  hintText: "0",
+                                  hintStyle:
+                                      TextStyle(color: Color(0xFFffa938))),
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  fontFamily: "JetBrains",
+                                  color: Color(0xFFffa938)),
+                            ),
+                          ),
                           // height: 159,
                         ),
                       ),
